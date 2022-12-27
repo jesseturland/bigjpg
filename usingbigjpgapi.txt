@@ -63,3 +63,8 @@ def dffn(in_tid,out_jpg):
 # only the file name is needed for step 1. It saves time to work with just one list, and run the required operations as needed
 # on the same list, referring to elements as [0] and [1]
 
+l = [['out_saldena002.jpg', '2561c4246dcf435e817d19db7a144e4f'], ['out_saldena003.jpg', 'd0d638b03f9c48c0a53dd5eb4f8f7e9f'], ['out_saldena004.jpg', 'd1e807c977464e8c973d70cb1dafd80c'], ['out_saldena005.jpg', '2d99df9055e6400abedc66d2f69c7362'], ['out_saldena006.jpg', '7f948785fc40455d855467855e9a18fe'], ['out_saldena007.jpg', '0cbe05c5f4f44fe6be721ecaf1fd83bd'], ['out_saldena008.jpg', 'a0ec7895ac1942d483873fe69a841fd2']]
+
+
+# further notes: it is sometimes helpful in this process to have the code for accessing files using os module, and also for saving and cropping screenshots
+
