@@ -68,3 +68,67 @@ l = [['out_saldena002.jpg', '2561c4246dcf435e817d19db7a144e4f'], ['out_saldena00
 
 # further notes: it is sometimes helpful in this process to have the code for accessing files using os module, and also for saving and cropping screenshots
 
+
+import os
+
+files_list = []
+
+basepath = 'Coding Manual//.'
+# basepath = 'F:\\Apollo Sync Folder\\03 audio\\Conv Mozart\\Focus Mozart Vol. 5 Disc 5\\.'
+for entry in os.listdir(basepath):
+    if os.path.isfile(os.path.join(basepath, entry)):
+        if entry.find("out") > -1 and entry.find("saldena") > -1:
+#             print(entry)
+            files_list.append(entry)
+
+    
+print(files_list)
+
+
+
+
+
+import pyautogui as pg
+import time
+
+cntr= 0
+pgs = []
+
+
+while cntr < 700:
+    cntr = cntr + 1
+    cntr2 = str(cntr)
+    if len(cntr2) == 1:
+        pgs.append("00" + cntr2)
+    elif len(cntr2) ==2:
+        pgs.append("0" + cntr2)
+    else:
+        pgs.append(cntr2)
+
+# print(pgs)
+# pg.screenshot()
+
+time.sleep(10)
+
+for item in pgs[300:400]:
+    var = pg.screenshot()
+    var.save("anderson" +item + ".jpg")
+    time.sleep(1)
+    pg.click()
+#     pg.press("right")
+    time.sleep(1)
+#     pg.press("up")
+#     pg.press("up")
+
+
+
+
+
+from PIL import Image
+ 
+for i in files_list:
+    img = Image.open("Coding Manual//" + i)
+     
+    img_res = img.crop((145, 181, 919, 1293)) 
+     
+    img_res.save("Coding Manual//" + "out_" + i)
