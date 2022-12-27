@@ -15,6 +15,7 @@ import json
 # bigjpg api.
 # this works best with simple hosting and Filezilla
 
+fl = []
 def fn_gt(mv):
     data = {
         'style': 'photo',
@@ -29,9 +30,13 @@ def fn_gt(mv):
         data={'conf': json.dumps(data)}
     )
     
+    
+    l2 = []
     print(r1.json())
     v2 = r1.json().get('tid')
-    return v2
+    l2.append(mv)
+    l2.append(v2)
+    fl.append(l2)
 
 
 
