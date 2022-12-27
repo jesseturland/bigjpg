@@ -1,0 +1,60 @@
+#It has been my experience that it works better to process the list of images in two steps:
+
+#1) upload the images in order to the server with instructions for how they are to be processed
+#2) download the images from the server
+
+import requests 
+import json
+
+
+# this function will take a single string variable and upload it to the server using your unique api. be careful to set the 
+# noise value appropriately, it can range from -1 to 3. I set it at 2 for a previous job, and that seemed to take too much black
+# out. So maybe 0 or 1 is preferable
+
+# it seems to be necessary to upload your images to another server location in order to have them received by
+# bigjpg api.
+# this works best with simple hosting and Filezilla
+
+def fn_gt(mv):
+    data = {
+        'style': 'photo',
+        'noise': '1', # - noise can be '-1', '0', '1', '2', '3' which means 'None', 'Low, 'Medium', 'High', 'Highest'
+        'x2': '1',
+        'input': "http://justimages.wordsandnumbersroundtheworld.com/banana/" + mv
+    }
+    
+    r1 = requests.post(
+        url='https://bigjpg.com/api/task/',
+        headers={'X-API-KEY': '66f8e90b48244453af83747eeeb12749'},
+        data={'conf': json.dumps(data)}
+    )
+    
+    print(r1.json())
+    v2 = r1.json().get('tid')
+    return v2
+
+
+
+# step 2. This function saves the files from the bigjpg server onto your own local computer.
+# in_tid is the tid variable fetched from the previous step. out_jpg is the filename of the jpg you
+# wish to save locally. It seems easiest if this is the same name as the name of the unprocessed input file.
+
+
+def dffn(in_tid,out_jpg):
+    r = requests.get(url='https://bigjpg.com/api/task/' + in_tid)
+    r2 = r.json().get(in_tid).get("url")
+    
+    response = requests.get(r2, stream=True)
+    
+    f = open("local_save" + out_jpg, "wb")
+    
+    for chunk in response.iter_content(chunk_size=512):
+        if chunk:
+            f.write(chunk)
+    f.close()
+
+
+# below is an example of a list I processed. Note both items in each sub-list are needed for step 2. But
+# only the file name is needed for step 1. It saves time to work with just one list, and run the required operations as needed
+# on the same list, referring to elements as [0] and [1]
+
